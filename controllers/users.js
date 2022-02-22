@@ -30,10 +30,10 @@ const createUser = async (req, res, next) => {
         next(
           new Conflict('Пользователь существует'),
         );
+      } else {
+        next(err);
       }
-      next(err);
     })
-    .catch((err) => next(err));
 };
 
 const getCurrentUserInfo = (req, res, next) => {
@@ -53,8 +53,8 @@ const updateUser = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     {
-      name: req.body.name,
       email: req.body.email,
+      name: req.body.name,
     },
     {
       new: true,
@@ -84,6 +84,14 @@ const updateUser = (req, res, next) => {
           break;
         }
         case 'MongoError': {
+          if (err.code === 11000) {
+            next(
+              new Conflict('Пользователь уже существует'),
+            );
+          }
+          break;
+        }
+        case 'MongoServerError': {
           if (err.code === 11000) {
             next(
               new Conflict('Пользователь уже существует'),

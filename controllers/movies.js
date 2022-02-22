@@ -10,10 +10,35 @@ const getAllMovies = (req, res, next) => {
 };
 
 const createMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId, } = req.body;
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId,
+  } = req.body;
+
   const owner = req.user._id;
+
   Movie.create({
-    country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId, owner,
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId,
+    owner,
   })
     .then((movie) => res.status(200).send(movie))
     .catch((err) => {
@@ -49,11 +74,12 @@ const deleteMovie = (req, res, next) => {
         next(
           new BadRequest('Переданы некорректные данные'),
         );
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
 module.exports = {
-  getAllMovies, createMovie, deleteMovie
+  getAllMovies, createMovie, deleteMovie,
 };

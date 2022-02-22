@@ -1,5 +1,8 @@
 const moviesRouter = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
+const { BadRequest } = require('../errors/badRequest');
+const { Unauthorized } = require('../errors/unauthorized');
+const { NotFound } = require('../errors/notFound');
 const urlPattern = require('../utils/regexp');
 
 const {
@@ -17,11 +20,11 @@ moviesRouter.post(
       duration: Joi.number().required(),
       year: Joi.string().required(),
       description: Joi.string().required(),
-      image: Joi.string().uri().required(),
-      trailerLink: Joi.string().uri().required(),
+      image: Joi.string().regex(urlPattern).required(),
+      trailerLink: Joi.string().regex(urlPattern).required(),
       nameRU: Joi.string().required(),
       nameEN: Joi.string().required(),
-      thumbnail: Joi.string().uri().required(),
+      thumbnail: Joi.string().regex(urlPattern).required(),
       movieId: Joi.number().required(),
     }),
   }),
