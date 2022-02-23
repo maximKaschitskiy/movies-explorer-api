@@ -9,8 +9,7 @@ const corsMiddleware = require('./middlewares/corsMiddleware');
 const { requestLogger, errorLogger } = require('./middlewares/logMiddleware');
 const { errors } = require('celebrate');
 const apiLimiter = require('./utils/rateLimiter');
-
-const { PORT = 3001 } = process.env;
+const { PORT, DB_MODE } = require('./utils/config');
 
 const app = express();
 
@@ -28,7 +27,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-mongoose.connect(process.env.DATABASE_URL)
+mongoose.connect(DB_MODE)
   .then(() => console.log('Подключение к БД удалось'))
   .catch(() => console.log('Подключение к БД не удалось'));
 
@@ -44,5 +43,5 @@ app.use(errors());
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {
-  console.log(`Сервер стартовал. Порт: ${PORT}`);
+  console.log(`Сервер стартовал. Порт: ${PORT}. База: ${DB_MODE}. Mode: ${process.env.NODE_ENV}`);
 });
