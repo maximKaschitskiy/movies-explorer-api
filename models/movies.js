@@ -38,13 +38,22 @@ const movieSchema = new mongoose.Schema({
       message: 'Некорректный URL',
     },
   },
+  thumbnail: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (url) => urlPattern.test(url),
+      message: 'Некорректный URL',
+    },
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'user',
   },
   movieId: {
-    type: String,
+    type: Number,
+    unique: true,
     required: true,
   },
   nameRU: {

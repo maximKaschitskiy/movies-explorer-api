@@ -2,6 +2,7 @@ const Movie = require('../models/movies');
 const { BadRequest } = require('../errors/badRequest');
 const { Forbidden } = require('../errors/forbidden');
 const { NotFound } = require('../errors/notFound');
+const { Conflict } = require('../errors/conflict');
 
 const getAllMovies = (req, res, next) => {
   Movie.find({})
@@ -47,7 +48,13 @@ const createMovie = (req, res, next) => {
           new BadRequest('Переданы некорректные данные'),
         );
       }
-      next(err);
+      if (err.code === 11000) {
+        next(
+          new Conflict('Пользователь существует'),
+        );
+      } else {
+        next(err);
+      }
     })
     .catch((err) => next(err));
 };
