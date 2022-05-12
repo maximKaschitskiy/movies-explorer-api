@@ -2,12 +2,12 @@ const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 const ALLOWED_CORS = [
   'http://localhost:3000',
   'https://localhost:3000',
-  'http://84.201.141.78',
-  'https://84.201.141.78',
-  'http://wwww.hot-chicks.nomoredomains.work',
-  'https://www.hot-chicks.nomoredomains.work',
-  'http://hot-chicks.nomoredomains.work',
-  'https://hot-chicks.nomoredomains.work',
+  'http://89.108.76.228',
+  'https://89.108.76.228',
+  'http://wwww.myfilmsdb.cf',
+  'https://www.myfilmsdb.cf',
+  'http://myfilmsdb.cf',
+  'https://myfilmsdb.cf',
 ];
 
 module.exports = (req, res, next) => {
