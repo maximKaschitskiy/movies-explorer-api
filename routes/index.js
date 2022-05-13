@@ -12,6 +12,6 @@ router.use(account);
 router.use('/', auth, usersRouter);
 router.use('/', auth, moviesRouter);
 
-router.use(notFound)
+router.use(notFound);
 
 module.exports = router;

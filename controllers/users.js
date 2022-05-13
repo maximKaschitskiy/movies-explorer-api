@@ -44,10 +44,13 @@ const getCurrentUserInfo = (req, res, next) => {
         next(
           new NotFound('Пользователь не найден'),
         );
+      } else {
+        res.status(200).send(user);
       }
-      res.status(200).send(user);
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+        next(err);
+    });
 };
 
 const updateUser = (req, res, next) => {
