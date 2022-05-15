@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const router = require('./routes/index');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const corsMiddleware = require('./middlewares/corsMiddleware');
 const { requestLogger, errorLogger } = require('./middlewares/logMiddleware');
@@ -34,7 +35,9 @@ mongoose.connection.on('error', () => console.log('Подключение к Б�
 
 app.use(bodyParser.json());
 
-app.use('/', corsMiddleware);
+app.use(cors({
+  origin: ALLOWED_CORS,
+}));
 
 app.use('/', router);
 
