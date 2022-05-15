@@ -8,9 +8,12 @@ const ALLOWED_CORS = [
   'https://www.myfilmsdb.cf',
   'http://myfilmsdb.cf',
   'https://myfilmsdb.cf',
+  'http://api.myfilmsdb.cf',
+  'https://api.myfilmsdb.cf',
 ];
 
-module.exports = (req, res, next) => {
+const corsMiddleware = (req, res, next) => {
+
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
   const { origin } = req.headers;
@@ -25,5 +28,8 @@ module.exports = (req, res, next) => {
     res.header('Access-Control-Allow-Headers', requestHeaders);
     res.end();
   }
+
   next();
 };
+
+module.exports = corsMiddleware;

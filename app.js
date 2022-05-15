@@ -19,8 +19,6 @@ app.use(requestLogger);
 
 app.use(apiLimiter);
 
-app.use(corsMiddleware);
-
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
@@ -35,6 +33,8 @@ mongoose.connection.on('open', () => console.log('Подключение к БД
 mongoose.connection.on('error', () => console.log('Подключение к БД прервано'));
 
 app.use(bodyParser.json());
+
+app.use(corsMiddleware);
 
 app.use('/', router);
 
