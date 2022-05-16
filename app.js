@@ -35,9 +35,8 @@ mongoose.connection.on('error', () => console.log('Подключение к Б�
 
 app.use(bodyParser.json());
 
-app.use(cors({
-  origin: ALLOWED_CORS,
-}));
+app.options('*', corsMiddleware);
+app.use(corsMiddleware);
 
 app.use('/', router);
 

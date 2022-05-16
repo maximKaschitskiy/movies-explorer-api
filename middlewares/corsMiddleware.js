@@ -1,33 +1,23 @@
-const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-const ALLOWED_CORS = [
+const cors = require('cors');
+const Forbidden = require('../errors/forbidden');
+
+const whitelist = [
   'http://localhost:3000',
-  'https://localhost:3000',
-  'http://89.108.76.228',
-  'https://89.108.76.228',
-  'http://wwww.myfilmsdb.cf',
-  'https://www.myfilmsdb.cf',
   'http://myfilmsdb.cf',
   'https://myfilmsdb.cf',
-  'http://api.myfilmsdb.cf',
-  'https://api.myfilmsdb.cf',
+  'http://www.myfilmsdb.cf',
+  'https://www.myfilmsdb.cf'
 ];
-
-module.exports = (req, res, next) => {
-
-  const { method } = req;
-  const requestHeaders = req.headers['access-control-request-headers'];
-  const { origin } = req.headers;
-
-  if (ALLOWED_CORS.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Credentials', 'true');
-  }
-
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    res.end();
-  }
-
-  next();
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Forbidden('Доступ запрещён'));
+    }
+  },
+  optionsSuccessStatus: 200,
+  credentials: true,
 };
+
+module.exports = cors(corsOptions);
