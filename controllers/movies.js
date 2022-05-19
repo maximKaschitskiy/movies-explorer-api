@@ -4,8 +4,10 @@ const { Forbidden } = require('../errors/forbidden');
 const { NotFound } = require('../errors/notFound');
 const { Conflict } = require('../errors/conflict');
 
+
 const getAllMovies = (req, res, next) => {
-  Movie.find({})
+  const id = req.user._id;
+  Movie.find({ owner: id })
     .then((movie) => res.status(200).send(movie))
     .catch((err) => next(err));
 };
