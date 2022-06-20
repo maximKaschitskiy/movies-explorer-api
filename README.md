@@ -5,7 +5,7 @@ Backend для Movies Explorer на Node.js (Express).
 Allows to create an account to access the front-end part of the service and add entries to the database.
 Designed to work with a third-party movie database from the API: https://api.nomoreparties.co/beatfilm-movies
 ## Technologies
-Server based on Node.js and Express library. 3001 port. Records are stored in MongoDB. Secure routes require validation with the Bearer token in the header's Authorization parameter.
+Server based on Node.js and Express library. 3001 port. Stored in MongoDB. Secure routes require validation with the Bearer token in the header's Authorization parameter.
 
 ## How to run
 
