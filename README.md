@@ -1,7 +1,7 @@
 
 # MoviesExplorer REST API
 
-Backend для Movies Explorer на Node.js (Express).
+Backend For Movies Explorer.
 Allows to create an account to access the front-end part of the service and add entries to the database.
 Designed to work with a third-party movie database from the API: https://api.nomoreparties.co/beatfilm-movies
 ## Technologies
